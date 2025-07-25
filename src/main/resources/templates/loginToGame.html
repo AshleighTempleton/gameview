@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" th:href="@{/css/materialize.min.css}" />
+		<link rel="stylesheet" th:href="@{/css/styles.css}" />
+		<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+			rel="stylesheet"
+		/>
+
+		<title>Login</title>
+	</head>
+	<body>
+		<h1>Log in to game</h1>
+		<div th:if="${param.error}" class="error">
+			<p>Invalid username or password</p>
+		</div>
+		<div th:if="${param.logout}" class="success">
+			<p>You have been logged out successfully</p>
+		</div>
+		<div>
+			<form th:action="@{/login}" method="post" class="col s6">
+				<div class="input-field s3">
+					<i class="material-icons prefix">account_circle</i>
+					<label for="username">Username:</label>
+					<input
+						type="text"
+						id="username"
+						name="username"
+						class="validate"
+						required
+					/>
+				</div>
+				<div class="input-field s3">
+					<i class="material-icons prefix">vpn_key</i>
+					<label for="password">Password:</label>
+					<input
+						type="password"
+						id="password"
+						name="password"
+						class="validate"
+						required
+					/>
+				</div>
+				<button type="submit" class="btn waves-effect deep-purple darken-1">
+					Login
+					<i class="material-icons right">videogame_asset</i>
+				</button>
+			</form>
+		</div>
+
+		<div>
+			<p>Don't have an account? <a href="/register">Register here</a></p>
+		</div>
+		<script th:src="@{/js/materialize.min.js}"></script>
+	</body>
+</html>
