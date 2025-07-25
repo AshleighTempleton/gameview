@@ -10,13 +10,13 @@
 			<h1>Error occurred</h1>
 			<p>
 				<strong>Status Code:</strong>
-				<span th:text="${statusCode}">Unknown</span>
+				<span th:text="${statusCode} ?: 'Unknown'"></span>
 			</p>
 			<p>
 				<strong>Message:</strong>
-				<span th:text="${exceptionMessage}">No message available</span>
+				<span th:text="${exceptionMessage} ?: 'No message available'"></span>
 			</p>
-			<p>If you think this is a mistake, please contact support.</p>
+			<p>Sorry about that, games are full of bugs these days...</p>
 			<a href="/" class="btn">Go back to Home</a>
 		</div>
 	</body>

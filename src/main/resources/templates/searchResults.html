@@ -5,20 +5,31 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" th:href="@{/css/materialize.min.css}" />
 		<link rel="stylesheet" th:href="@{/css/styles.css}" />
-		<title>Home</title>
+		<title>Results</title>
 	</head>
 	<body>
 		<div th:replace="fragments/nav :: nav"></div>
 		<div th:replace="fragments/errorDisplay :: errorDisplay"></div>
-		<h1 th:text="'Welcome, ' + ${username} + '!'"></h1>
-
 		<form th:action="@{/search}" method="get">
 			<input type="text" name="query" placeholder="Search games..." required />
 			<button type="submit">Search</button>
 		</form>
-
-		<div>
-			<p>recently viewed games:</p>
+		<h2>Search results for "<span th:text="${query}"></span>"</h2>
+		<div th:if="${#lists.isEmpty(games)}">
+			<p>No results found.</p>
+		</div>
+		<div th:if="${!#lists.isEmpty(games)}">
+			<ul>
+				<li th:each="game : ${games}">
+					<h3 th:text="${game.title}"></h3>
+					<p th:text="${game.text}"></p>
+					<p>
+						<strong>Game Name:</strong>
+						<span th:text="${game.game_info.name}"></span>
+					</p>
+					<img th:src="${game.image}" alt="Game cover" style="width: 150px" />
+				</li>
+			</ul>
 		</div>
 		<script th:src="@{/js/materialize.min.js}"></script>
 	</body>
