@@ -11,7 +11,13 @@
 		<div th:replace="fragments/nav :: nav"></div>
 		<div th:replace="fragments/errorDisplay :: errorDisplay"></div>
 		<form th:action="@{/search}" method="get">
-			<input type="text" name="query" placeholder="Search games..." required />
+			<input
+				type="text"
+				name="query"
+				th:value="${query}"
+				placeholder="Search games..."
+				required
+			/>
 			<button type="submit">Search</button>
 		</form>
 		<h2>Search results for "<span th:text="${query}"></span>"</h2>
@@ -20,15 +26,21 @@
 		</div>
 		<div th:if="${!#lists.isEmpty(games)}">
 			<ul>
-				<li th:each="game : ${games}">
+				<!-- <li th:each="game : ${games}">
 					<h3 th:text="${game.title}"></h3>
-					<p th:text="${game.text}"></p>
 					<p>
-						<strong>Game Name:</strong>
+                        <strong>Game Name:</strong>
 						<span th:text="${game.game_info.name}"></span>
 					</p>
 					<img th:src="${game.image}" alt="Game cover" style="width: 150px" />
-				</li>
+				</li> -->
+				<div th:each="game : ${games}">
+					<a th:href="@{/game/{id}(id=${game.game_info.id})}">
+						<h4 th:text="${game.title}"></h4>
+						<p th:text="${game.text}"></p>
+						<img th:src="${game.image}" alt="Game image" />
+					</a>
+				</div>
 			</ul>
 		</div>
 		<script th:src="@{/js/materialize.min.js}"></script>
