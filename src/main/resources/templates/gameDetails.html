@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" th:href="@{/css/materialize.min.css}" />
+		<link rel="stylesheet" th:href="@{/css/styles.css}" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div th:replace="fragments/nav :: nav"></div>
+		<div th:replace="fragments/errorDisplay :: errorDisplay"></div>
+		<div class="container">
+			<div class="section">
+				<h3 th:text="${game.name}">Game Name</h3>
+				<p class="grey-text" th:text="${game.short_desc}">
+					Short description of the game.
+				</p>
+			</div>
+
+			<div class="row">
+				<div class="col s12 m6">
+					<img
+						class="responsive-img z-depth-2"
+						th:src="${game.images.cover}"
+						alt="Game Cover"
+					/>
+				</div>
+				<div class="col s12 m6">
+					<ul class="collection with-header">
+						<li class="collection-header"><h5>Game Details</h5></li>
+						<li class="collection-item">
+							<strong>Release:</strong>
+							<span
+								th:text="${#dates.format(game.release * 1000, 'dd MMM yyyy')}"
+								>Release Date</span
+							>
+						</li>
+						<li class="collection-item">
+							<strong>Platforms:</strong>
+							<span th:each="platform, iterStat : ${game.platforms}">
+								<span th:text="${platform}"></span
+								><span th:if="${!iterStat.last}">, </span>
+							</span>
+						</li>
+						<li class="collection-item">
+							<strong>Systems:</strong>
+							<span th:each="sys, iterStat : ${game.systems}">
+								<span th:text="${sys}"></span
+								><span th:if="${!iterStat.last}">, </span>
+							</span>
+						</li>
+						<li class="collection-item">
+							<strong>Developers:</strong>
+							<span th:each="dev, iterStat : ${game.developers}">
+								<span th:text="${dev.name}"></span
+								><span th:if="${!iterStat.last}">, </span>
+							</span>
+						</li>
+						<li class="collection-item">
+							<strong>Publishers:</strong>
+							<span th:each="pub, iterStat : ${game.publishers}">
+								<span th:text="${pub.name}"></span
+								><span th:if="${!iterStat.last}">, </span>
+							</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="section">
+				<h5>Trailer</h5>
+				<div th:if="${!#lists.isEmpty(game.media.youtube_trailer_ids)}">
+					<div class="video-container">
+						<iframe
+							th:src="'https://www.youtube.com/embed/' + ${game.media.youtube_trailer_ids[0]}"
+							frameborder="0"
+							allowfullscreen
+						></iframe>
+					</div>
+				</div>
+				<div th:if="${#lists.isEmpty(game.media.youtube_trailer_ids)}">
+					<p>No trailer available.</p>
+				</div>
+			</div>
+		</div>
+
+		<script th:src="@{/js/materialize.min.js}"></script>
+	</body>
+</html>

@@ -8,7 +8,7 @@ import java.net.URI;
 
 import com.projectash.gameview.dtos.NexardaApiStatus;
 import com.projectash.gameview.dtos.NexardaPriceDto;
-import com.projectash.gameview.dtos.NexardaProductDto;
+import com.projectash.gameview.dtos.NexardaProductWrapperDto;
 import com.projectash.gameview.dtos.NexardaSearchWrapperDto;
 
 import lombok.RequiredArgsConstructor;
@@ -55,15 +55,16 @@ public class NexardaService {
         }
     }
 
-    public NexardaProductDto getProductDetails(String id){
+    public NexardaProductWrapperDto getProductDetails(String id){
         try {
             URI uri = UriComponentsBuilder
             .newInstance()
             .uri(java.net.URI.create(productUrl))
+            .queryParam("type", "game")
             .queryParam("id", id)
             .build()
             .toUri();
-            return restTemplate.getForObject(uri, NexardaProductDto.class);
+            return restTemplate.getForObject(uri, NexardaProductWrapperDto.class);
         } catch (Exception e) {
             System.err.println("Error retrieving product details: " + e.getMessage());
             throw new RuntimeException("Product details retrieval error: " + e.getMessage(), e);
