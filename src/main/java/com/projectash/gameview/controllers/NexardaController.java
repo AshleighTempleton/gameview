@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 
 import com.projectash.gameview.dtos.NexardaProductWrapperDto;
 import com.projectash.gameview.services.NexardaService;
+import com.projectash.gameview.dtos.NexardaPriceWrapperDto;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,11 +26,13 @@ public class NexardaController {
     ){
         try
         {
-            NexardaProductWrapperDto wrapper = nexardaService.getProductDetails(id);
-            if (wrapper != null && wrapper.getProduct() != null) {
-                model.addAttribute("game", wrapper.getProduct());
-                // model.addAttribute("prices", wrapper.getPrices());
-
+            NexardaProductWrapperDto productWrapper = nexardaService.getProductDetails(id);
+            if (productWrapper != null && productWrapper.getProduct() != null) {
+                model.addAttribute("game", productWrapper.getProduct());
+                NexardaPriceWrapperDto priceWrapper = nexardaService.getPrices(id, "EUR");
+                if (priceWrapper != null && priceWrapper.getPrices() != null) {
+                    model.addAttribute("prices", priceWrapper.getPrices());
+                }
             } else {
                 model.addAttribute("error", "Game not found or no details available.");
                 return "searchResults";

@@ -64,6 +64,10 @@
 								><span th:if="${!iterStat.last}">, </span>
 							</span>
 						</li>
+						<li class="collection-item" th:if="${prices != null}">
+							<strong>Lowest price:</strong>
+							<span th:text="${prices.lowest}"></span>
+						</li>
 					</ul>
 				</div>
 			</div>

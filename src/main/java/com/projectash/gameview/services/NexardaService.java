@@ -7,7 +7,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 import com.projectash.gameview.dtos.NexardaApiStatus;
-import com.projectash.gameview.dtos.NexardaPriceDto;
+import com.projectash.gameview.dtos.NexardaPriceWrapperDto;
 import com.projectash.gameview.dtos.NexardaProductWrapperDto;
 import com.projectash.gameview.dtos.NexardaSearchWrapperDto;
 
@@ -71,17 +71,17 @@ public class NexardaService {
         }
     }
 
-    public NexardaPriceDto getPrices(String id, String currency){
+    public NexardaPriceWrapperDto getPrices(String id, String currency){
         try {
             URI uri = UriComponentsBuilder
             .newInstance()
             .uri(java.net.URI.create(pricesUrl))
-            .queryParam("currency", currency)
-            .queryParam("id", id)
             .queryParam("type", "game")
+            .queryParam("id", id)
+            .queryParam("currency", currency)
             .build()
             .toUri();
-            return restTemplate.getForObject(uri, NexardaPriceDto.class);
+            return restTemplate.getForObject(uri, NexardaPriceWrapperDto.class);
         } catch (Exception e) {
             System.err.println("Error retrieving prices: " + e.getMessage());
             throw new RuntimeException("Price retrieval error: " + e.getMessage(), e);
