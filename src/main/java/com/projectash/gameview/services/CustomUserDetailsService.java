@@ -9,7 +9,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.projectash.gameview.repositories.UserRepository;
 import com.projectash.gameview.entities.User;
-import java.util.List;
 
 
 @Service

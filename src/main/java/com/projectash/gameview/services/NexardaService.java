@@ -27,8 +27,8 @@ public class NexardaService {
     @Value("${NEXARDA_PRICES}")
     private String pricesUrl;
 
-    @Value("${NEXARDA_IMAGE}")
-    private String imageUrl;
+    // @Value("${NEXARDA_IMAGE}")
+    // private String imageUrl;
 
     @Value("${NEXARDA_STATUS}")
     private String statusUrl;
@@ -55,7 +55,7 @@ public class NexardaService {
         }
     }
 
-    public NexardaProductWrapperDto getProductDetails(String id){
+    public NexardaProductWrapperDto getProductDetails(Long id){
         try {
             URI uri = UriComponentsBuilder
             .newInstance()
@@ -71,7 +71,7 @@ public class NexardaService {
         }
     }
 
-    public NexardaPriceWrapperDto getPrices(String id, String currency){
+    public NexardaPriceWrapperDto getPrices(Long id, String currency){
         try {
             URI uri = UriComponentsBuilder
             .newInstance()
@@ -88,4 +88,3 @@ public class NexardaService {
         }
     }
 }
-// do we need the random image? dto?

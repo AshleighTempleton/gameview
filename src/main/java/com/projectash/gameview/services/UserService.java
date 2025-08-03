@@ -6,7 +6,9 @@ import com.projectash.gameview.entities.User;
 import com.projectash.gameview.repositories.UserRepository;
 import com.projectash.gameview.dtos.UserRegisterDto;
 
-
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Collections;
 
@@ -35,7 +37,25 @@ public class UserService {
                 .preferences(Collections.emptySet())
                 .build();
         userRepository.save(user);
-        return null;
+        return "Success";
+    }
+
+    public Long getCurrentUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new UsernameNotFoundException("User not authenticated");
+        }
+        String username = authentication.getName();
+        return userRepository.findByUsername(username)
+            .map(User::getId)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            // .getId();
+    }
+
+    public String getUsernameByid(Long userId){
+        return userRepository.findById(userId)
+            .map(User::getUsername)
+            .orElse("Username not found");
     }
 }
 
