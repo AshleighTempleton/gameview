@@ -51,7 +51,6 @@ public class ReviewService {
             review.setUserId(userId);
             review.setCreatedAt(LocalDateTime.now());
             Review savedReview = reviewRepository.save(review);
-            System.out.println("REVIEW SAVED");
             return reviewMapper.toDto(savedReview);
         } catch (Exception e) {
             System.out.println("ERROR: "+e.getMessage());
@@ -73,7 +72,6 @@ public class ReviewService {
 
     public boolean deleteReview(Long reviewId){
         Optional<Review> review = reviewRepository.findById(reviewId);
-        System.out.println("IN DELETE, FOUND REVIEW");
         if (review.isPresent() && review.get().getUserId().equals(userService.getCurrentUserId())) {
             reviewRepository.deleteById(reviewId);
             return true;
