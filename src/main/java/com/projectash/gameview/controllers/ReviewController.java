@@ -11,19 +11,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.projectash.gameview.services.UserService;
-
 import org.springframework.ui.Model;
 import jakarta.validation.Valid;
-
 import com.projectash.gameview.dtos.ReviewRequestDto;
 import com.projectash.gameview.dtos.NexardaPriceWrapperDto;
 import com.projectash.gameview.dtos.NexardaProductWrapperDto;
 import com.projectash.gameview.dtos.ReviewDto;
+import com.projectash.gameview.services.UserService;
 import com.projectash.gameview.services.NexardaService;
 import com.projectash.gameview.services.ReviewService;
 
@@ -142,6 +138,7 @@ public class ReviewController {
             List<ReviewDto> reviews = reviewService.getReviewsByGameId(id);
             model.addAttribute("reviews", reviews);
             model.addAttribute("hasUserReview", reviewService.hasReviewByUserForGame(currentUserId, id));
+            model.addAttribute("rating", reviewService.getUserRatings(id));
             return true;
         } catch (Exception e) {
             System.out.println("Error retrieving game details: " + e.getMessage());

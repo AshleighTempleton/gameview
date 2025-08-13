@@ -66,12 +66,15 @@
 						</li>
 						<li class="collection-item" th:if="${prices != null}">
 							<strong>Lowest price:</strong>
-							<!-- <span th:text="@{prices.currency_symbol}"> -->
+							<span th:text="@{prices.currency_symbol}">
 							<span th:text="${prices.lowest}"></span>
 							<!-- </span> -->
 							<!-- can add link to later in page with full price comparison and links to vendors -->
 						</li>
 					</ul>
+					<h5
+						th:text="'User Rating: ' + ${#numbers.formatDecimal(rating, 1, 1)}"
+					></h5>
 				</div>
 			</div>
 

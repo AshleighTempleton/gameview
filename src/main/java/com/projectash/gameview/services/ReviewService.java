@@ -78,4 +78,12 @@ public class ReviewService {
         }
         return false;
     }
+
+    public double getUserRatings(Long gameId){
+        List<Review> reviews = reviewRepository.findByGameId(gameId);
+        return reviews.stream()
+            .mapToDouble(Review :: getRating)
+            .average()
+            .orElse(0.0);
+    }
 }

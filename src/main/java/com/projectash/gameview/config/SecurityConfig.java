@@ -32,7 +32,9 @@ public class SecurityConfig {
 		.logout(logout -> logout
 				.logoutUrl("/logout") // Custom logout URL
 				.logoutSuccessUrl("/loginToGame?logout") // Redirect after logout
-				.permitAll() // Allow everyone to access the logout
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .permitAll() // Allow everyone to access the logout
 		);
 		return http.build();
 	}

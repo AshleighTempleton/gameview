@@ -5,7 +5,11 @@
 			<li><a th:href="@{/}">Home</a></li>
 			<li><a th:href="@{/wishlist}">Wishlist</a></li>
 			<li><a th:href="@{/profile}">Profile</a></li>
-			<li><a th:href="@{/logout}">Logout</a></li>
+			<li>
+				<form th:action="@{/logout}" method="post">
+					<button type="submit" class="btn btn-link">Logout</button>
+				</form>
+			</li>
 		</ul>
 	</div>
 </nav>
